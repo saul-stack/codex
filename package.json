@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/saul-stack/codex/issues"
   },
-  "homepage": "https://github.com/saul-stack/codex#readme"
+  "homepage": "https://github.com/saul-stack/codex#readme",
+  "dependencies": {
+    "pg": "^8.16.3"
+  }
 }
