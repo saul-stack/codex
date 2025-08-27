@@ -79,7 +79,7 @@ for (let input of inputs) {
 }
 
 try {
-  const result = moduleFunction(...inputArguments);
+  const result = await moduleFunction(...inputArguments);
   result != undefined
     ? console.log(`Output: ${result}`)
     : console.log("No value returned");
