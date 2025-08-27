@@ -53,10 +53,12 @@ if (!cliConfig) {
   process.exit(1);
 }
 
+const { description } = cliConfig;
+console.log(`\n${moduleName} function`);
+console.log(`--------`);
+description ? console.log(`${description}`) : null;
+
 const { inputs } = cliConfig;
-
-console.log(`\n${moduleName} function\n--------\nInputs: `);
-
 for (let input of inputs) {
   let userInput = await askQuestion(rl, `${input.name} (${input.type}): `);
   switch (input.type) {
