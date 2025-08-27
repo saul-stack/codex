@@ -36,15 +36,53 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-rl.question(`\n${moduleName} function\n--------\nInput: `, (input) => {
-  try {
-    const result = moduleFunction(input);
-    result != undefined
-      ? console.log(`Output: ${result}`)
-      : console.log("No value returned");
-  } catch (err) {
-    console.error("Error running function:", err.message);
+const askQuestion = (rl, question) => {
+  return new Promise((resolve) => {
+    rl.question(question, resolve);
+  });
+};
+
+const inputArguments = [];
+
+const { cliConfig } = module.default;
+
+if (!cliConfig) {
+  console.error(`Module default function must have cliConfig property e.g: \n{
+  inputs: [{ name: "x", type: "number" }]\n}`);
+
+  process.exit(1);
+}
+
+const { inputs } = cliConfig;
+
+console.log(`\n${moduleName} function\n--------\nInputs: `);
+
+for (let input of inputs) {
+  let userInput = await askQuestion(rl, `${input.name} (${input.type}): `);
+  switch (input.type) {
+    case "number":
+      userInput = JSON.parse(userInput);
+      break;
+    case "boolean":
+      userInput = JSON.parse(userInput.toLowerCase());
+      break;
+    case "array":
+    case "object":
+      userInput = JSON.parse(userInput);
+      break;
+    case "string":
+    default:
   }
-  console.log("--------");
-  rl.close();
-});
+  inputArguments.push(userInput);
+}
+
+try {
+  const result = moduleFunction(...inputArguments);
+  result != undefined
+    ? console.log(`Output: ${result}`)
+    : console.log("No value returned");
+} catch (err) {
+  console.error("Error running function:", err.message);
+}
+console.log("--------");
+rl.close();
