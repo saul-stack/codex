@@ -20,7 +20,7 @@ let module;
 try {
   module = await import(`./${moduleName}.js`);
 } catch (err) {
-  console.error(`Module "${moduleName}" not found.`);
+  console.error(err || `Module "${moduleName}" not found.`);
   process.exit(1);
 }
 
@@ -84,7 +84,7 @@ try {
     ? console.log(`Output: ${result}`)
     : console.log("No value returned");
 } catch (err) {
-  console.error("Error running function:", err.message);
+  console.error(`Error: ${err.message}` || "Error running function:");
 }
 console.log("--------");
 rl.close();
