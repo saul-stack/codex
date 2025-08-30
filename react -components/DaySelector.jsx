@@ -3,7 +3,7 @@
 //  When the selected day is updated, handleDayChange function is executed
 
 import { useEffect, useState } from "react";
-import { DropDown } from "./DropDown";
+import { Dropdown } from "./Dropdown";
 
 export const DaySelector = () => {
   handleDayChange = () => {
@@ -27,7 +27,7 @@ export const DaySelector = () => {
 
   return (
     <div>
-      <DropDown onChange={setDay} options={days} />
+      <Dropdown onChange={setDay} options={days} />
     </div>
   );
 };

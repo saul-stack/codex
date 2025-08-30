@@ -3,7 +3,7 @@
 //  When the selected time is updated, handleTimeChange function is executed
 
 import { useEffect, useState } from "react";
-import { DropDown } from "./DropDown";
+import { Dropdown } from "./Dropdown";
 
 export const TimeSelector = () => {
   const handleTimeChange = () => {
@@ -41,8 +41,8 @@ export const TimeSelector = () => {
 
   return (
     <div className="time-dropdown">
-      <DropDown onChange={setHour} options={hours} />
-      <DropDown onChange={setMinute} options={minutes} />
+      <Dropdown onChange={setHour} options={hours} />
+      <Dropdown onChange={setMinute} options={minutes} />
     </div>
   );
 };
