@@ -2,21 +2,36 @@
 //  Users can select an option from a dropdown menu.
 
 //  Input props
-//  {label}     Optional    Label on the dropdown value ("time", "color" etc.)
-//  {options}   Required    Array of values the user can select from
+//  {options}   Required    An array of dropdown values the user can select from.
+//                          To represent values with user-friendly strings, pass
+//                          an array of objects, with keys "string" and "value" e.g:
+//                          [{value: 1, string: "First option"}, {value: 1, string: "Second option"}]
+//
 //  {onChange}  Required    Function to execute when the user selects an option
 
-export const DropDown = ({ label, onChange, options }) => {
+export const DropDown = ({ onChange, options }) => {
+  let values = Array.from(
+    options.map((option) => (option.value != undefined ? option.value : option))
+  );
+
+  let strings = Array.from(
+    options.map((option) =>
+      option.string != undefined ? option.string : option
+    )
+  );
+
   return (
-    <div>
-      <select onChange={(e) => onChange(e.target.value)}>
-        {options.map((option) => (
-          <option key={option} value={option}>
-            {label && `${label}: `}
-            {option}
+    <select onChange={(e) => onChange(e.target.value)}>
+      {options.map((_, i) => {
+        const string = strings[i];
+        const value = values[i];
+
+        return (
+          <option key={value} value={value}>
+            {string}
           </option>
-        ))}
-      </select>
-    </div>
+        );
+      })}
+    </select>
   );
 };
